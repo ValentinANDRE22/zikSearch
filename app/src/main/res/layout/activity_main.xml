@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/vinylebackg"
-    tools:context="com.mds.valentinandre.ziksearch.MainActivity">
+    tools:context="com.mds.valentinandre.ziksearch.activity.MainActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
