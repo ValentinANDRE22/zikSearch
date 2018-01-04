@@ -7,6 +7,7 @@ import fr.mds.ziksearch.model.Artist;
 import fr.mds.ziksearch.model.Track;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -27,5 +28,21 @@ public interface ApiService {
 
    @GET("search/track")
     Call<TrackContainer>getTracks(@Query("q") String artist, @Query("limit") int limit );
+
+    @GET("artist/{id}/albums")
+    Call<AlbumContainer> getAlbumsByArtist(@Path("id") int id, @Query("limit") int limit );
+
+
+    @GET("artist/{id}/top")
+    Call<TrackContainer> getTracksByArtist(@Path("id") int id, @Query("limit") int limit );
+
+    @GET("album/{id}/tracks")
+    Call<TrackContainer> getTracksByAlbum(@Path("id") int id);
+
+
+
+    //album id
+   // https://api.deezer.com/album/302127
+
 
 }
