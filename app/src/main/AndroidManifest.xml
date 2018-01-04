@@ -20,8 +20,10 @@
 
         <activity android:name="fr.mds.ziksearch.activity.ArtistActivity">
         </activity>
-
         <activity android:name="fr.mds.ziksearch.activity.AlbumActivity">
+        </activity>
+
+        <activity android:name="fr.mds.ziksearch.activity.PreviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
