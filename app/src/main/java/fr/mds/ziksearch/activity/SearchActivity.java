@@ -1,15 +1,30 @@
 package fr.mds.ziksearch.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.mds.valentinandre.ziksearch.R;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import fr.mds.ziksearch.adapter.AlbumAdapter;
+import fr.mds.ziksearch.adapter.ArtistAdapter;
+import fr.mds.ziksearch.adapter.TrackAdapter;
 import fr.mds.ziksearch.container.AlbumContainer;
 import fr.mds.ziksearch.container.ArtistContainer;
 import fr.mds.ziksearch.container.TrackContainer;
+import fr.mds.ziksearch.interfaces.OnAlbumClickListener;
+import fr.mds.ziksearch.interfaces.OnArtistClickListener;
+import fr.mds.ziksearch.interfaces.OnTrackClickListener;
 import fr.mds.ziksearch.model.Album;
 import fr.mds.ziksearch.model.Artist;
 import fr.mds.ziksearch.model.Track;
@@ -24,13 +39,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by kingdom on 04/01/18.
  */
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements  OnArtistClickListener, OnAlbumClickListener, OnTrackClickListener{
 
 
     public List<Album> albums;
     public List<Artist> artists;
     public List<Track> tracks;
-    public  int limit = 5;
+    public int limit = 15;
+    public ArtistAdapter artistAdapter ;
+    public AlbumAdapter albumAdapter ;
+    public TrackAdapter trackAdapter ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +60,56 @@ public class SearchActivity extends AppCompatActivity {
 
         System.out.println("start");
 
-        this.getArtist("eminem");
-        this.getAlbums("eminem");
-        this.getTracks("eminem");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String keywords = (String) bundle.get("keywords");
+
+        artists = new ArrayList<>();
+        albums = new ArrayList<>();
+        tracks = new ArrayList<>();
+
+        artistAdapter = new ArtistAdapter(artists, this,  this);
+        albumAdapter = new AlbumAdapter(albums, this,  this);
+        trackAdapter = new TrackAdapter(tracks, this, this);
+
+        getAlbums(keywords);
+        getTracks(keywords);
+        getArtist(keywords);
+
+
+
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        recyclerView.setAdapter(artistAdapter);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        final GridLayoutManager gridLayoutAlbumManager = new GridLayoutManager(this, 2);
+
+        //gridLayoutAlbumManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        RecyclerView albumRecyclerView = (RecyclerView) findViewById(R.id.rv_album);
+
+        albumRecyclerView.setAdapter(albumAdapter);
+        albumRecyclerView.setLayoutManager(gridLayoutAlbumManager);
+
+        final GridLayoutManager gridLayoutTrackManager = new GridLayoutManager(this, 1);
+        RecyclerView trackRecyclerView = (RecyclerView) findViewById(R.id.rv_track);
+
+        trackRecyclerView.setAdapter(trackAdapter);
+        trackRecyclerView.setLayoutManager(gridLayoutTrackManager);
+
+
+        FloatingActionButton fab_search = findViewById(R.id.fab_search);
+
+        fab_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     private  void getAlbums(String search)
@@ -55,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ApiService service = retrofit.create(ApiService.class);
 
-        Call<AlbumContainer> callback = service.getAlbums(search, limit);
+        Call<AlbumContainer> callback = service.getAlbums(search, 4);
 
         callback.enqueue(new Callback<AlbumContainer>() {
             @Override
@@ -66,13 +132,9 @@ public class SearchActivity extends AppCompatActivity {
 
                     AlbumContainer datas =  response.body();
 
-                    albums = datas.getAlbums();
 
-                    for (Album album : albums)
-                    {
-                        System.out.println("albums : " + album.getTitle());
-
-                    }
+                    albums.addAll(datas.getAlbums());
+                    albumAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -86,6 +148,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private  void getArtist(String search)
     {
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiService.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -93,7 +156,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ApiService service = retrofit.create(ApiService.class);
 
-        Call<ArtistContainer> callback = service.getArtists(search, limit);
+        Call<ArtistContainer> callback = service.getArtists(search, 4);
 
         callback.enqueue(new Callback<ArtistContainer>() {
             @Override
@@ -104,13 +167,8 @@ public class SearchActivity extends AppCompatActivity {
 
                     ArtistContainer datas =  response.body();
 
-                    artists = datas.getArtists();
-
-                    for (Artist artist : artists)
-                    {
-                        System.out.println("Artists : " + artist.getName());
-
-                    }
+                    artists.addAll(datas.getArtists());
+                    artistAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -131,7 +189,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ApiService service = retrofit.create(ApiService.class);
 
-        Call<TrackContainer> callback = service.getTracks(search, limit);
+        Call<TrackContainer> callback = service.getTracks(search, 15);
 
         callback.enqueue(new Callback<TrackContainer>() {
             @Override
@@ -142,13 +200,8 @@ public class SearchActivity extends AppCompatActivity {
 
                     TrackContainer datas =  response.body();
 
-                    tracks = datas.getTracks();
-
-                    for (Track track : tracks)
-                    {
-                        System.out.println("Tracks : " + track.getTitle());
-
-                    }
+                    tracks.addAll(datas.getTracks());
+                    trackAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -158,5 +211,50 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onArtistClick(Artist artist, int position, View itemViewHolder) {
+        System.out.println(artist.getName());
+
+
+        Intent intent = new Intent(SearchActivity.this, ArtistActivity.class);
+        intent.putExtra("id", artist.getId());
+        intent.putExtra("image", artist.getImage());
+        intent.putExtra("name", artist.getName());
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onAlbumClick(Album album, int position, View itemViewHolder) {
+        System.out.println(album.getTitle());
+
+
+        Intent intent = new Intent(SearchActivity.this, AlbumActivity.class);
+        intent.putExtra("id", album.getId());
+        intent.putExtra("cover", album.getCover());
+        intent.putExtra("title", album.getTitle());
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onTrackClick(Track track, int position, View itemViewHolder) {
+        System.out.println(track.getTitle());
+
+
+        Intent intent = new Intent(SearchActivity.this, PreviewActivity.class);
+        intent.putExtra("track", track.getPreview());
+        intent.putExtra("cover", track.getAlbum().getCover());
+        intent.putExtra("title", track.getTitle());
+
+        startActivity(intent);
+
     }
 }

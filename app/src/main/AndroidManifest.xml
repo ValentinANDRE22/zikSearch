@@ -12,23 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="fr.mds.ziksearch.activity.MainActivity">
-        </activity>
-
-        <activity android:name="fr.mds.ziksearch.activity.SearchActivity">
-        </activity>
-
-        <activity android:name="fr.mds.ziksearch.activity.ArtistActivity">
-        </activity>
-        <activity android:name="fr.mds.ziksearch.activity.AlbumActivity">
-        </activity>
-
-        <activity android:name="fr.mds.ziksearch.activity.PreviewActivity">
+        <activity android:name="fr.mds.ziksearch.activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="fr.mds.ziksearch.activity.SearchActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+        <activity android:name="fr.mds.ziksearch.activity.ArtistActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
+        <activity android:name="fr.mds.ziksearch.activity.AlbumActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
+
+        <activity android:name="fr.mds.ziksearch.activity.PreviewActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
         </activity>
 
     </application>

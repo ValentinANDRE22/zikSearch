@@ -1,14 +1,18 @@
 package fr.mds.ziksearch.activity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.mds.valentinandre.ziksearch.R;
+import com.squareup.picasso.Picasso;
 
+import fr.mds.ziksearch.holders.TrackViewHolder;
 import fr.mds.ziksearch.model.Track;
 
 
@@ -26,21 +30,36 @@ public class PreviewActivity extends AppCompatActivity {
     boolean paused = false;
 
     @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        track = (Track) bundle.get("track");
-*/
+
+        getSupportActionBar().setTitle((String) bundle.get("title"));
 
         Track track = new Track();
-        track.setPreview("https://e-cdns-preview-7.dzcdn.net/stream/72dcaf71ea645b6740b22f6182a932e9-3.mp3");
+        track.setPreview((String) bundle.get("track"));
+        track.setImage((String) bundle.get("cover"));
         ImageButton play = (ImageButton) findViewById(R.id.start);
+        System.out.println(track.getImage());
+
+        Picasso.with(this)
+                .load(track.getImage())
+                .placeholder(R.drawable.user)
+                .into((ImageView) findViewById(R.id.iv_image));
 
         try {
             this.playAudio(track.getPreview());
@@ -78,35 +97,6 @@ public class PreviewActivity extends AppCompatActivity {
         });
     }
 
-    public void doClick(View view) {
-
-        switch(view.getId()) {
-            case R.id.start:
-
-                break;
-
-        }
-/*
-        case R.id.pausePlayerBtn:
-        if(mediaPlayer != null && mediaPlayer.isPlaying()) {
-            playbackPosition = mediaPlayer.getCurrentPosition();
-            mediaPlayer.pause();
-        }
-        break;
-        case R.id.restartPlayerBtn:
-        if(mediaPlayer != null && !mediaPlayer.isPlaying()) {
-            mediaPlayer.seekTo(playbackPosition);
-            mediaPlayer.start();
-        }
-        break;
-        case R.id.stopPlayerBtn:
-        if(mediaPlayer != null) {
-            mediaPlayer.stop();
-            playbackPosition = 0;
-        }
-        break;
-        */
-    }
 
     private void playAudio(String url) throws Exception
     {

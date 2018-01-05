@@ -3,11 +3,13 @@ package fr.mds.ziksearch.model;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.internal.Primitives;
 
+import java.io.Serializable;
+
 /**
  * Created by kingdom on 04/01/18.
  */
 
-public class Track {
+public class Track implements Serializable {
 
     private  int id;
     private String title;
@@ -15,6 +17,7 @@ public class Track {
 
     @SerializedName("picture_medium")
     private String image;
+
     private  String preview;
     private  Artist artist;
     private  Album album;
