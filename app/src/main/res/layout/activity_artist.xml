@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:gravity="center_horizontal"
@@ -30,7 +30,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -43,6 +43,30 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:srcCompat="@mipmap/ic_launcher_round" />
+
+                <TextView
+                    android:id="@+id/textViewTrack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="Populaires"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="30sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_track"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="6dp"
+                    android:gravity="center_horizontal"
+                    android:padding="4dp"
+
+
+                    android:scrollbars="vertical" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -59,31 +83,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_album"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="6dp"
-                    android:gravity="center_horizontal"
-                    android:padding="4dp"
-
-
-                    android:scrollbars="vertical" />
-
-                <TextView
-                    android:id="@+id/textViewTrack"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:fontFamily="sans-serif-smallcaps"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:text="Tracks"
-                    android:textColor="@color/cardview_light_background"
-                    android:textSize="30sp" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_track"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
                     android:layout_gravity="center"
                     android:layout_margin="6dp"
                     android:gravity="center_horizontal"
@@ -91,6 +91,7 @@
 
 
                     android:scrollbars="vertical" />
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -86,7 +86,6 @@ public class SearchActivity extends AppCompatActivity implements  OnArtistClickL
 
         final GridLayoutManager gridLayoutAlbumManager = new GridLayoutManager(this, 2);
 
-        //gridLayoutAlbumManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         RecyclerView albumRecyclerView = (RecyclerView) findViewById(R.id.rv_album);
 
         albumRecyclerView.setAdapter(albumAdapter);
@@ -189,7 +188,7 @@ public class SearchActivity extends AppCompatActivity implements  OnArtistClickL
 
         ApiService service = retrofit.create(ApiService.class);
 
-        Call<TrackContainer> callback = service.getTracks(search, 15);
+        Call<TrackContainer> callback = service.getTracks(search, 6);
 
         callback.enqueue(new Callback<TrackContainer>() {
             @Override
