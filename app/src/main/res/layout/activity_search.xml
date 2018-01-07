@@ -30,20 +30,20 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:background="@drawable/bck"
         android:gravity="center_horizontal"
+
+
         android:orientation="vertical"
-
-
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        android:id="@+id/linearLayout4">
+        tools:layout_editor_absoluteY="8dp">
 
         <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_album"
                     android:layout_width="match_parent"
-                    android:layout_height="420dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="6dp"
                     android:gravity="center_horizontal"

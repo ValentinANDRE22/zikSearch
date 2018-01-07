@@ -53,12 +53,9 @@ public class SearchActivity extends AppCompatActivity implements  OnArtistClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("oncreate");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        System.out.println("start");
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -120,12 +117,11 @@ public class SearchActivity extends AppCompatActivity implements  OnArtistClickL
 
         ApiService service = retrofit.create(ApiService.class);
 
-        Call<AlbumContainer> callback = service.getAlbums(search, 4);
+        Call<AlbumContainer> callback = service.getAlbums(search, 6);
 
         callback.enqueue(new Callback<AlbumContainer>() {
             @Override
             public void onResponse(Call<AlbumContainer> call, Response<AlbumContainer> response) {
-                System.out.println("retrofit");
 
                 if (response.isSuccessful()) {
 
@@ -160,7 +156,6 @@ public class SearchActivity extends AppCompatActivity implements  OnArtistClickL
         callback.enqueue(new Callback<ArtistContainer>() {
             @Override
             public void onResponse(Call<ArtistContainer> call, Response<ArtistContainer> response) {
-                System.out.println("retrofit");
 
                 if (response.isSuccessful()) {
 
@@ -188,12 +183,11 @@ public class SearchActivity extends AppCompatActivity implements  OnArtistClickL
 
         ApiService service = retrofit.create(ApiService.class);
 
-        Call<TrackContainer> callback = service.getTracks(search, 6);
+        Call<TrackContainer> callback = service.getTracks(search, 10);
 
         callback.enqueue(new Callback<TrackContainer>() {
             @Override
             public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
-                System.out.println("retrofit");
 
                 if (response.isSuccessful()) {
 

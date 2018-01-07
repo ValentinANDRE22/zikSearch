@@ -52,8 +52,6 @@ public class ArtistActivity extends AppCompatActivity implements OnAlbumClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("oncreate");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -111,7 +109,6 @@ public class ArtistActivity extends AppCompatActivity implements OnAlbumClickLis
         callback.enqueue(new Callback<AlbumContainer>() {
             @Override
             public void onResponse(Call<AlbumContainer> call, Response<AlbumContainer> response) {
-                System.out.println("retrofit");
 
                 if (response.isSuccessful()) {
 
@@ -145,7 +142,6 @@ public class ArtistActivity extends AppCompatActivity implements OnAlbumClickLis
         callback.enqueue(new Callback<TrackContainer>() {
             @Override
             public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
-                System.out.println("retrofit");
 
                 if (response.isSuccessful()) {
 

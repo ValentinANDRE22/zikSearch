@@ -53,7 +53,7 @@ public class PreviewActivity extends AppCompatActivity {
         Track track = new Track();
         track.setPreview((String) bundle.get("track"));
         track.setImage((String) bundle.get("cover"));
-        ImageButton play = (ImageButton) findViewById(R.id.start);
+        final ImageButton play = (ImageButton) findViewById(R.id.start);
         System.out.println(track.getImage());
 
         Picasso.with(this)
@@ -80,6 +80,7 @@ public class PreviewActivity extends AppCompatActivity {
                             mediaPlayer.seekTo(playbackPosition);
                             mediaPlayer.start();
                             paused = false;
+                            play.setImageResource(R.drawable.play);
 
                         }
                         else{
@@ -87,6 +88,8 @@ public class PreviewActivity extends AppCompatActivity {
                             playbackPosition = mediaPlayer.getCurrentPosition();
                             mediaPlayer.pause();
                             paused = true;
+
+                            play.setImageResource(R.drawable.pause);
                         }
                     }
 

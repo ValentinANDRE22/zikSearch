@@ -45,7 +45,6 @@ public class AlbumActivity  extends AppCompatActivity implements OnTrackClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("oncreate");
 
         super.onCreate(savedInstanceState);
 
@@ -92,8 +91,6 @@ public class AlbumActivity  extends AppCompatActivity implements OnTrackClickLis
         callback.enqueue(new Callback<TrackContainer>() {
             @Override
             public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
-                System.out.println("retrofit");
-
                 if (response.isSuccessful()) {
 
 

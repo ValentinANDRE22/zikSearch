@@ -26,12 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("oncreate");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //vers search
-        System.out.println("sta rt");
 
 
         ImageButton ib_search = (ImageButton) findViewById(R.id.ib_search);
