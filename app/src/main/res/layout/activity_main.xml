@@ -84,7 +84,6 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-smallcaps"
                 android:inputType="text"
-                android:text="Eminem"
                 android:textColor="@android:color/background_light"
                 app:layout_constraintRight_toLeftOf="@+id/ib_search"
                 tools:layout_editor_absoluteY="-69dp" />
