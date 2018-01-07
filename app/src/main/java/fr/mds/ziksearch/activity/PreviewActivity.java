@@ -80,7 +80,8 @@ public class PreviewActivity extends AppCompatActivity {
                             mediaPlayer.seekTo(playbackPosition);
                             mediaPlayer.start();
                             paused = false;
-                            play.setImageResource(R.drawable.play);
+                            play.setImageResource(R.drawable.pause);
+
 
                         }
                         else{
@@ -88,8 +89,8 @@ public class PreviewActivity extends AppCompatActivity {
                             playbackPosition = mediaPlayer.getCurrentPosition();
                             mediaPlayer.pause();
                             paused = true;
+                            play.setImageResource(R.drawable.play);
 
-                            play.setImageResource(R.drawable.pause);
                         }
                     }
 

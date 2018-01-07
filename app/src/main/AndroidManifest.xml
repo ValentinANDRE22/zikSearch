@@ -34,6 +34,7 @@
         </activity>
 
         <activity android:name="fr.mds.ziksearch.activity.PreviewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         </activity>
